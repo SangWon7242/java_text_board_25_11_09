@@ -1,5 +1,7 @@
 package com.sbs;
 
+import com.sbs.domain.article.Article;
+
 import java.util.Scanner;
 
 public class Main {
@@ -22,6 +24,14 @@ public class Main {
         String content = sc.nextLine();
 
         int id = ++lastId;
+
+        Article article = new Article();
+        article.id = id;
+        article.title = title;
+        article.content = content;
+
+        System.out.println("생성 된 게시물 객체 : " + article);
+
         System.out.printf("%d번 게시물이 등록 되었습니다.\n", id);
       }
       else if(cmd.equals("exit")) {
