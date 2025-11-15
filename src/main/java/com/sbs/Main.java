@@ -28,12 +28,7 @@ public class Main {
 
         int id = ++lastId;
 
-        Article article = new Article();
-        article.id = id;
-        article.title = title;
-        article.content = content;
-
-        System.out.println("생성 된 게시물 객체 : " + article);
+        Article article = new Article(id, title, content);
 
         articles.add(article);
 
@@ -60,18 +55,6 @@ public class Main {
           continue;
         }
 
-        /*
-        Article findArticle = null;
-        for(int i = 0; i < articles.size(); i++) {
-          Article article = articles.get(i);
-
-          if(article.id == id) {
-            findArticle = article;
-            break;
-          }
-        }
-        */
-    
         // 내가 입력한 id와 리스트 내부에 있는 게시물 객체의 id랑 일치한 게시물 객체만 필터링
         int finalId = id;
         Article findArticle = articles.stream()
