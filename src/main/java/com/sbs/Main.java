@@ -18,9 +18,11 @@ public class Main {
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
     List<Article> articles = new ArrayList<>();
-    int lastId = 0;
     
     makeArticleTestData(articles);
+
+    // int lastId = articles.get(articles.size() - 1).id;
+    int lastId = articles.getLast().id;
 
     System.out.println("== 자바 게시판 시작 ==");
 
@@ -72,7 +74,7 @@ public class Main {
             .findFirst().orElse(null); // 찾으면 찾은 것중에 첫 번째거를 리턴, 못 찾으면 null을 반환
 
         if (findArticle == null) {
-          System.out.println("해당 게시물은 존재하지 않습니다.");
+          System.out.printf("%d번 게시물은 존재하지 않습니다.\n", id);
           continue;
         }
 
