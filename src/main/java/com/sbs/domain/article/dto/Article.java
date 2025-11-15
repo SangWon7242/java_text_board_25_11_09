@@ -1,4 +1,4 @@
-package com.sbs.domain.article;
+package com.sbs.domain.article.dto;
 
 public class Article {
   public int id;
