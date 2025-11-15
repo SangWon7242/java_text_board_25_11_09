@@ -2,6 +2,7 @@ package com.sbs;
 
 import com.sbs.domain.article.Article;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -37,7 +38,12 @@ public class Main {
         lastArticle = article;
 
         System.out.printf("%d번 게시물이 등록 되었습니다.\n", id);
-      } else if (cmd.equals("/usr/article/detail")) {
+      } else if (cmd.startsWith("/usr/article/detail")) {
+        String[] urlBits = cmd.trim().split("/");
+        // System.out.println(Arrays.toString(urlBits));
+
+        int id = Integer.parseInt(urlBits[4]);
+
         Article article = lastArticle;
 
         if(article == null) {
@@ -45,7 +51,7 @@ public class Main {
           continue;
         }
 
-        System.out.printf("== %d번 게시물 상세보기 ==\n", article.id);
+        System.out.printf("== %d번 게시물 상세보기 ==\n", id);
         System.out.printf("번호 : %d\n", article.id);
         System.out.printf("제목 : %s\n", article.title);
         System.out.printf("내용 : %s\n", article.content);
