@@ -71,6 +71,18 @@ public class Main {
         System.out.printf("제목 : %s\n", findArticle.title);
         System.out.printf("내용 : %s\n", findArticle.content);
 
+      } else if (cmd.equals("/usr/article/list")) {
+        if (articles.isEmpty()) {
+          System.out.println("게시물이 존재하지 않습니다.");
+          continue;
+        }
+
+        System.out.println("== 게시물 리스트 ==");
+        System.out.println("번호 | 제목");
+        for(Article article : articles) {
+          System.out.printf("%d | %s\n", article.id, article.title);
+        }
+
       } else if (cmd.equals("exit")) {
         System.out.println("프로그램을 종료합니다.");
         break;
