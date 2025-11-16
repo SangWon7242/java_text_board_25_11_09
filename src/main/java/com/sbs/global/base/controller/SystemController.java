@@ -2,6 +2,7 @@ package com.sbs.global.base.controller;
 
 import com.sbs.domain.article.controller.ArticleController;
 import com.sbs.global.base.container.Container;
+import com.sbs.global.base.rq.Rq;
 
 import java.util.Scanner;
 
@@ -14,11 +15,16 @@ public class SystemController {
 
   public void run() {
     Scanner sc = Container.sc;
+    Rq rq = new Rq();
+
     System.out.println("== 자바 게시판 시작 ==");
 
     while (true) {
       System.out.print("명령) ");
       String cmd = sc.nextLine().trim();
+
+      rq.setCommand(cmd);
+      rq.getActionPath();
 
       if(cmd.trim().isEmpty()) {
         System.out.println("명령어를 입력해주세요.");
@@ -33,34 +39,18 @@ public class SystemController {
         break;
       }
 
-      String[] urlBits = cmd.trim().split("/");
-
-      if(urlBits.length < 4) {
-        System.out.println("올바른 명령어 형식이 아닙니다.(예: /usr/article/list)");
-        continue;
+      if(!rq.getUrlPathUserType().startsWith("usr")) {
+        System.out.println("명령어를 확인 후 다시 입력해주세요.");
+        return;
       }
 
-      String urlPathUserType = urlBits[1];
-      String urlPathUserResource = urlBits[2];
-      String urlPathUserAction = urlBits[3];
-      String urlPathVariable = null;
-
-      if (urlBits.length > 4) {
-        urlPathVariable = urlBits[4];
-      }
-
-      if(!urlPathUserType.startsWith("usr")) {
-        System.out.println("명령어를 잘 못 입력하셨습니다.");
-        continue;
-      }
-
-      switch (urlPathUserType) {
+      switch (rq.getUrlPathUserType()) {
         case "usr" -> {
-          switch (urlPathUserResource) {
+          switch (rq.getUrlPathControllerName()) {
             case "article" -> {
-              switch (urlPathUserAction) {
+              switch (rq.getUrlPathUserAction()) {
                 case "write" -> articleController.doWrite();
-                case "detail" -> articleController.showDetail(urlPathVariable);
+                case "detail" -> articleController.showDetail(rq);
                 case "list" -> articleController.showList();
               }
             }

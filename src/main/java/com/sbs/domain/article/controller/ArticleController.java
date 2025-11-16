@@ -3,6 +3,7 @@ package com.sbs.domain.article.controller;
 import com.sbs.domain.article.dto.Article;
 import com.sbs.domain.article.service.ArticleService;
 import com.sbs.global.base.container.Container;
+import com.sbs.global.base.rq.Rq;
 
 import java.util.List;
 
@@ -26,15 +27,12 @@ public class ArticleController {
     System.out.printf("%d번 게시물이 등록 되었습니다.\n", article.getId());
   }
 
-  public void showDetail(String urlPathVariable) {
-    int id = 0;
-    if(urlPathVariable != null) {
-      try {
-        id = Integer.parseInt(urlPathVariable);
-      } catch (NumberFormatException e) {
-        System.out.println("id를 숫자형태로 입력해주세요.");
-        return;
-      }
+  public void showDetail(Rq rq) {
+    int id = rq.getUrlPathVariable();
+
+    if(id == 0) {
+      System.out.println("올바른 값을 입력해주세요.");
+      return;
     }
 
     List<Article> articles = articleService.getArticles();
