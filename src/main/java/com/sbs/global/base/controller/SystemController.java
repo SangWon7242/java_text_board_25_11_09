@@ -7,11 +7,6 @@ import com.sbs.global.base.rq.Rq;
 import java.util.Scanner;
 
 public class SystemController {
-  private ArticleController articleController;
-
-  public SystemController() {
-    articleController = Container.articleController;
-  }
 
   public void run() {
     Scanner sc = Container.sc;
@@ -43,20 +38,27 @@ public class SystemController {
         System.out.println("명령어를 확인 후 다시 입력해주세요.");
         return;
       }
+      
+      BaseController baseController = getControllerByRequestUri(rq);
 
-      switch (rq.getUrlPathUserType()) {
-        case "usr" -> {
-          switch (rq.getUrlPathControllerName()) {
-            case "article" -> {
-              switch (rq.getUrlPathUserAction()) {
-                case "write" -> articleController.doWrite();
-                case "detail" -> articleController.showDetail(rq);
-                case "list" -> articleController.showList();
-              }
-            }
+      if(baseController != null) {
+        baseController.doAction(rq);
+      }
+
+    }
+  }
+
+  private BaseController getControllerByRequestUri(Rq rq) {
+    switch (rq.getUrlPathUserType()) {
+      case "usr" -> {
+        switch (rq.getUrlPathControllerName()) {
+          case "article" -> {
+            return Container.articleController;
           }
         }
       }
     }
+
+    return null;
   }
 }

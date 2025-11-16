@@ -3,15 +3,25 @@ package com.sbs.domain.article.controller;
 import com.sbs.domain.article.dto.Article;
 import com.sbs.domain.article.service.ArticleService;
 import com.sbs.global.base.container.Container;
+import com.sbs.global.base.controller.BaseController;
 import com.sbs.global.base.rq.Rq;
 
 import java.util.List;
 
-public class ArticleController {
+public class ArticleController implements BaseController {
   private ArticleService articleService;
 
   public ArticleController() {
     articleService = Container.articleService;
+  }
+
+  @Override
+  public void doAction(Rq rq) {
+    switch (rq.getUrlPathUserAction()) {
+      case "write" -> doWrite();
+      case "detail" -> showDetail(rq);
+      case "list" -> showList();
+    }
   }
 
   public void doWrite() {
