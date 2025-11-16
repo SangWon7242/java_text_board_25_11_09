@@ -1,47 +1,23 @@
 package com.sbs.domain.article.dto;
 
+import lombok.*;
+
+@Getter
+@Setter
+@AllArgsConstructor // public Article(int id, String title, String content) {}
+@NoArgsConstructor // public Article() {}
+@ToString
 public class Article {
   private static int lastId;
   private int id;
   private String title;
   private String content;
 
+  static {
+    lastId = 0;
+  }
+
   public Article(String title, String content) {
     this(++lastId, title, content);
-  }
-
-  public Article(int id, String title, String content) {
-    this.id = id;
-    this.title = title;
-    this.content = content;
-  }
-
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  public String getTitle() {
-    return title;
-  }
-
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-  public String getContent() {
-    return content;
-  }
-
-  public void setContent(String content) {
-    this.content = content;
-  }
-
-  @Override
-  public String toString() {
-    return "{id: %d, title: '%s', content: '%s'}".formatted(id, title, content);
   }
 }
