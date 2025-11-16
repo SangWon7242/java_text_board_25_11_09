@@ -19,9 +19,10 @@ public class ArticleController implements BaseController {
   public void doAction(Rq rq) {
     switch (rq.getUrlPathUserAction()) {
       case "write" -> doWrite();
+      case "list" -> showList();
       case "detail" -> showDetail(rq);
       case "modify" -> doModify(rq);
-      case "list" -> showList();
+      case "delete" -> doDelete(rq);
     }
   }
 
@@ -115,5 +116,31 @@ public class ArticleController implements BaseController {
     articleService.modify(id, title, content);
 
     System.out.printf("%d번 게시물을 수정하였습니다.\n", id);
+  }
+
+  private void doDelete(Rq rq) {
+    int id = rq.getUrlPathVariable();
+
+    if(id == 0) {
+      System.out.println("올바른 값을 입력해주세요.");
+      return;
+    }
+
+    List<Article> articles = articleService.getArticles();
+
+    if (articles.isEmpty()) {
+      System.out.println("게시물이 존재하지 않습니다.");
+      return;
+    }
+
+    Article article = articleService.findById(id);
+
+    if (article == null) {
+      System.out.printf("%d번 게시물은 존재하지 않습니다.\n", id);
+      return;
+    }
+
+    articleService.delete(id);
+    System.out.printf("%d번 게시물을 삭제하였습니다.\n", id);
   }
 }
