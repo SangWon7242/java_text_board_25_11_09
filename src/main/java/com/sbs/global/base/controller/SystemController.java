@@ -49,8 +49,9 @@ public class SystemController {
         urlPathVariable = urlBits[4];
       }
 
-      if(!urlPathUserType.startsWith("user")) {
+      if(!urlPathUserType.startsWith("usr")) {
         System.out.println("명령어를 잘 못 입력하셨습니다.");
+        continue;
       }
 
       switch (urlPathUserType) {

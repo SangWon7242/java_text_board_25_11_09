@@ -1,29 +1,16 @@
 package com.sbs.domain.article.controller;
 
 import com.sbs.domain.article.dto.Article;
+import com.sbs.domain.article.service.ArticleService;
 import com.sbs.global.base.container.Container;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class ArticleController {
-  List<Article> articles;
-  int lastId;
+  private ArticleService articleService;
 
   public ArticleController() {
-    articles = new ArrayList<>();
-
-    makeArticleTestData(articles);
-
-    lastId = articles.getLast().id;
-  }
-
-  void makeArticleTestData(List<Article> articles) {
-    IntStream.rangeClosed(1, 5)
-        .forEach(
-            i -> articles.add(new Article(i, "제목" + i, "내용" + i))
-        );
+    articleService = Container.articleService;
   }
 
   public void doWrite() {
@@ -34,13 +21,9 @@ public class ArticleController {
     System.out.print("내용 : ");
     String content = Container.sc.nextLine();
 
-    int id = ++lastId;
+    Article article = articleService.write(title, content);
 
-    Article article = new Article(id, title, content);
-
-    articles.add(article);
-
-    System.out.printf("%d번 게시물이 등록 되었습니다.\n", id);
+    System.out.printf("%d번 게시물이 등록 되었습니다.\n", article.id);
   }
 
   public void showDetail(String urlPathVariable) {
@@ -54,29 +37,29 @@ public class ArticleController {
       }
     }
 
+    List<Article> articles = articleService.getArticles();
+
     if (articles.isEmpty()) {
       System.out.println("게시물이 존재하지 않습니다.");
       return;
     }
 
-    // 내가 입력한 id와 리스트 내부에 있는 게시물 객체의 id랑 일치한 게시물 객체만 필터링
-    int finalId = id;
-    Article findArticle = articles.stream()
-        .filter(article -> article.id == finalId) // 필터링
-        .findFirst().orElse(null); // 찾으면 찾은 것중에 첫 번째거를 리턴, 못 찾으면 null을 반환
+    Article article = articleService.findById(id);
 
-    if (findArticle == null) {
+    if (article == null) {
       System.out.printf("%d번 게시물은 존재하지 않습니다.\n", id);
       return;
     }
 
-    System.out.printf("== %d번 게시물 상세보기 ==\n", findArticle.id);
-    System.out.printf("번호 : %d\n", findArticle.id);
-    System.out.printf("제목 : %s\n", findArticle.title);
-    System.out.printf("내용 : %s\n", findArticle.content);
+    System.out.printf("== %d번 게시물 상세보기 ==\n", article.id);
+    System.out.printf("번호 : %d\n", article.id);
+    System.out.printf("제목 : %s\n", article.title);
+    System.out.printf("내용 : %s\n", article.content);
   }
 
   public void showList() {
+    List<Article> articles = articleService.getArticles();
+
     if (articles.isEmpty()) {
       System.out.println("게시물이 존재하지 않습니다.");
       return;
