@@ -9,7 +9,7 @@ public class SystemController {
   private ArticleController articleController;
 
   public SystemController() {
-    articleController = new ArticleController();
+    articleController = Container.articleController;
   }
 
   public void run() {

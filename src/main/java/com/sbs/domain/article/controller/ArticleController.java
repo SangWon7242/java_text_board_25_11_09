@@ -5,7 +5,6 @@ import com.sbs.global.base.container.Container;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.IntStream;
 
 public class ArticleController {
