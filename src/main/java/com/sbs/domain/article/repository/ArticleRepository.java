@@ -38,4 +38,13 @@ public class ArticleRepository {
         .filter(article -> article.getId() == id)
         .findFirst().orElse(null);
   }
+
+  public void modify(int id, String title, String content) {
+    Article article = findById(id);
+
+    if(article == null) return;
+
+    article.setTitle(title);
+    article.setContent(content);
+  }
 }
