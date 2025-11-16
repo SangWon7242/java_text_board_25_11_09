@@ -1,7 +1,6 @@
 package com.sbs.global.base.container;
 
 import com.sbs.domain.article.controller.ArticleController;
-import com.sbs.domain.article.dto.Article;
 import com.sbs.domain.article.repository.ArticleRepository;
 import com.sbs.domain.article.service.ArticleService;
 
