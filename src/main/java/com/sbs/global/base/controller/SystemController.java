@@ -1,5 +1,6 @@
 package com.sbs.global.base.controller;
 
+import com.sbs.domain.member.member.dto.Member;
 import com.sbs.global.base.container.Container;
 import com.sbs.global.base.rq.Rq;
 
@@ -13,7 +14,14 @@ public class SystemController {
     System.out.println("== 자바 게시판 시작 ==");
 
     while (true) {
-      System.out.print("명령) ");
+      String promptName = "명령";
+
+      if(rq.isLogined()) {
+        Member member = (Member) rq.getAttr("loginedMember");
+        promptName = member.getUsername();
+      }
+
+      System.out.printf("%s) ", promptName);
       String cmd = sc.nextLine().trim();
 
       rq.setCommand(cmd);
