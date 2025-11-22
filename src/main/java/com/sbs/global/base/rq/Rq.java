@@ -1,5 +1,7 @@
 package com.sbs.global.base.rq;
 
+import com.sbs.global.base.container.Container;
+import com.sbs.global.session.Session;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,15 +11,23 @@ public class Rq {
 
   @Getter
   @Setter
-  String urlPathUserType;
+  public String urlPathUserType;
 
   @Getter
   @Setter
-  String urlPathControllerName;
+  public String urlPathControllerName;
 
   @Getter
   @Setter
-  String urlPathUserAction;
+  public String urlPathUserAction;
+
+  public Session session;
+
+  private String loginedMember = "loginedMember";
+
+  public Rq() {
+    session = Container.session;
+  }
 
   public void setCommand(String url) {
     this.url = url;
@@ -45,5 +55,31 @@ public class Rq {
     }
 
     return id;
+  }
+  
+  // 로그인 여부 확인
+  public boolean isLogined() {
+    return hasAttr(loginedMember);
+  }
+
+  // 로그아웃 여부 확인
+  public boolean isLogout() {
+    return !isLogined();
+  }
+
+  public void setAttr(String key, Object value) {
+    session.setAttribute(key, value);
+  }
+
+  public Object getAttr(String key) {
+    return session.getAttribute(key);
+  }
+
+  public void removeAttr(String key) {
+    session.removeAttribute(key);
+  }
+
+  public boolean hasAttr(String key) {
+    return session.hasAttribute(key);
   }
 }
