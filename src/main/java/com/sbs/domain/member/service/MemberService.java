@@ -14,4 +14,8 @@ public class MemberService {
   public Member join(String username, String password, String name) {
     return memberRepository.join(username, password, name);
   }
+
+  public Member findByUsername(String username) {
+    return memberRepository.findByUsername(username);
+  }
 }
