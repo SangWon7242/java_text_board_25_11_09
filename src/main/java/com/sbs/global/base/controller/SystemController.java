@@ -1,13 +1,11 @@
 package com.sbs.global.base.controller;
 
-import com.sbs.domain.article.controller.ArticleController;
 import com.sbs.global.base.container.Container;
 import com.sbs.global.base.rq.Rq;
 
 import java.util.Scanner;
 
 public class SystemController {
-
   public void run() {
     Scanner sc = Container.sc;
     Rq rq = new Rq();
@@ -54,6 +52,9 @@ public class SystemController {
         switch (rq.getUrlPathControllerName()) {
           case "article" -> {
             return Container.articleController;
+          }
+          case "member" -> {
+            return Container.memberController;
           }
         }
       }
