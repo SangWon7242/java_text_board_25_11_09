@@ -2,8 +2,11 @@ package com.sbs.global.base.controller;
 
 import com.sbs.domain.member.member.dto.Member;
 import com.sbs.global.base.container.Container;
+import com.sbs.global.base.interceptor.Interceptor;
 import com.sbs.global.base.rq.Rq;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class SystemController {
@@ -44,6 +47,8 @@ public class SystemController {
         System.out.println("명령어를 확인 후 다시 입력해주세요.");
         return;
       }
+
+      if(!runInterceptor(rq)) continue;
       
       BaseController baseController = getControllerByRequestUri(rq);
 
@@ -69,5 +74,20 @@ public class SystemController {
     }
 
     return null;
+  }
+
+  private boolean runInterceptor(Rq rq) {
+    List<Interceptor> interceptors = new ArrayList<>();
+
+    interceptors.add(Container.needLoginInterceptor);
+    interceptors.add(Container.needLogoutInterceptor);
+
+    for(Interceptor interceptor : interceptors) {
+      if(!interceptor.run(rq)) {
+        return false;
+      }
+    }
+
+    return true;
   }
 }
