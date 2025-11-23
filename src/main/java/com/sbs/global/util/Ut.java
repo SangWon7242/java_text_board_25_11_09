@@ -16,6 +16,8 @@ public class Ut {
     for(String queryBit : queryBits) {
       String[] queryBitBits = queryBit.split("=", 2);
 
+      if(queryBitBits.length == 1) continue;
+
       String paramName = queryBitBits[0];
       String paramValue = queryBitBits[1];
 

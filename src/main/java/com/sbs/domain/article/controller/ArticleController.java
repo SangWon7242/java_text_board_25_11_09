@@ -79,8 +79,9 @@ public class ArticleController implements BaseController {
   }
 
   public void showList(Rq rq) {
-    String q = rq.getParams().get("q");
-    System.out.println("검색 키워드 : " + q);
+    // 검색 키워드
+    String q = rq.getParam("q", "");
+    System.out.println("q : " + q);
 
     List<Article> articles = articleService.getArticles();
 

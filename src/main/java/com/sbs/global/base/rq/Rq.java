@@ -66,7 +66,7 @@ public class Rq {
 
     return id;
   }
-  
+
   // 로그인 여부 확인
   public boolean isLogined() {
     return hasAttr(loginedMember);
@@ -103,5 +103,21 @@ public class Rq {
 
   public Member getLoginedMember() {
     return (Member) getAttr(loginedMember);
+  }
+
+  public int getIntParam(String paramName, int defaultValue) {
+    if (!params.containsKey(paramName)) return defaultValue;
+
+    try {
+      return Integer.parseInt(params.get(paramName));
+    } catch (NumberFormatException e) {
+      return defaultValue;
+    }
+  }
+
+  public String getParam(String paramName, String defaultValue) {
+    if (!params.containsKey(paramName)) return defaultValue;
+
+    return params.get(paramName);
   }
 }
