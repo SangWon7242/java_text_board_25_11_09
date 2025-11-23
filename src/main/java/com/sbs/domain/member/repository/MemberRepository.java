@@ -4,7 +4,6 @@ import com.sbs.domain.member.member.dto.Member;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class MemberRepository {
   private List<Member> members;
