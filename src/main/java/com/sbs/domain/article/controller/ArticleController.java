@@ -8,9 +8,7 @@ import com.sbs.global.base.container.Container;
 import com.sbs.global.base.controller.BaseController;
 import com.sbs.global.base.rq.Rq;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ArticleController implements BaseController {
   private MemberService memberService;
@@ -81,9 +79,8 @@ public class ArticleController implements BaseController {
   public void showList(Rq rq) {
     // 검색 키워드
     String q = rq.getParam("q", "");
-    System.out.println("q : " + q);
 
-    List<Article> articles = articleService.getArticles();
+    List<Article> articles = articleService.getArticles(q);
 
     if (articles.isEmpty()) {
       System.out.println("게시물이 존재하지 않습니다.");

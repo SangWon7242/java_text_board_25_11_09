@@ -4,6 +4,7 @@ import com.sbs.domain.article.dto.Article;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ArticleRepository {
@@ -54,5 +55,11 @@ public class ArticleRepository {
     if(article == null) return;
 
     articles.remove(article);
+  }
+
+  public List<Article> findByKeywordContaining(String keyword) {
+    return articles.stream()
+        .filter(article -> article.getTitle().contains(keyword))
+        .collect(Collectors.toList());
   }
 }
