@@ -13,8 +13,8 @@ public class ArticleService {
     articleRepository = Container.articleRepository;
   }
 
-  public Article write(String title, String content) {
-    return articleRepository.write(title, content);
+  public Article write(String title, String content, int writerId) {
+    return articleRepository.write(title, content, writerId);
   }
 
   public List<Article> getArticles() {

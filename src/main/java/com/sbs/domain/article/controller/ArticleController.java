@@ -18,7 +18,7 @@ public class ArticleController implements BaseController {
   @Override
   public void doAction(Rq rq) {
     switch (rq.getUrlPathUserAction()) {
-      case "write" -> doWrite();
+      case "write" -> doWrite(rq);
       case "list" -> showList();
       case "detail" -> showDetail(rq);
       case "modify" -> doModify(rq);
@@ -26,7 +26,7 @@ public class ArticleController implements BaseController {
     }
   }
 
-  public void doWrite() {
+  public void doWrite(Rq rq) {
     System.out.println("== 게시물 작성 ==");
     System.out.print("제목 : ");
     String title = Container.sc.nextLine();
@@ -34,7 +34,9 @@ public class ArticleController implements BaseController {
     System.out.print("내용 : ");
     String content = Container.sc.nextLine();
 
-    Article article = articleService.write(title, content);
+    int writerId = rq.getLoginedMember().getId();
+
+    Article article = articleService.write(title, content, writerId);
 
     System.out.printf("%d번 게시물이 등록 되었습니다.\n", article.getId());
   }
@@ -65,6 +67,7 @@ public class ArticleController implements BaseController {
     System.out.printf("번호 : %d\n", article.getId());
     System.out.printf("제목 : %s\n", article.getTitle());
     System.out.printf("내용 : %s\n", article.getContent());
+    System.out.printf("작성자 번호 : %d\n", article.getWriterId());
   }
 
   public void showList() {
@@ -76,11 +79,11 @@ public class ArticleController implements BaseController {
     }
 
     System.out.println("== 게시물 리스트 ==");
-    System.out.println("번호 | 제목");
+    System.out.println("번호 | 제목 | 작성자 번호");
 
     for (int i = articles.size() - 1; i >= 0; i--) {
       Article article = articles.get(i);
-      System.out.printf("%d | %s\n", article.getId(), article.getTitle());
+      System.out.printf("%d | %s | %d\n", article.getId(), article.getTitle(), article.getWriterId());
     }
   }
 
