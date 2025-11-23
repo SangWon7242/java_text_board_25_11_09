@@ -4,6 +4,8 @@ import com.sbs.domain.member.member.dto.Member;
 import com.sbs.domain.member.repository.MemberRepository;
 import com.sbs.global.base.container.Container;
 
+import javax.sql.RowSet;
+
 public class MemberService {
   private MemberRepository memberRepository;
 
@@ -17,5 +19,9 @@ public class MemberService {
 
   public Member findByUsername(String username) {
     return memberRepository.findByUsername(username);
+  }
+
+  public Member findById(int id) {
+    return memberRepository.findById(id);
   }
 }
