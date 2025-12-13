@@ -1,7 +1,7 @@
-package com.sbs.domain.article.service;
+package com.sbs.domain.article.article.service;
 
-import com.sbs.domain.article.dto.Article;
-import com.sbs.domain.article.repository.ArticleRepository;
+import com.sbs.domain.article.article.dto.Article;
+import com.sbs.domain.article.article.repository.ArticleRepository;
 import com.sbs.global.base.container.Container;
 
 import java.util.ArrayList;

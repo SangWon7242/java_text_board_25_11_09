@@ -1,8 +1,8 @@
 package com.sbs.global.base.container;
 
-import com.sbs.domain.article.controller.ArticleController;
-import com.sbs.domain.article.repository.ArticleRepository;
-import com.sbs.domain.article.service.ArticleService;
+import com.sbs.domain.article.article.controller.ArticleController;
+import com.sbs.domain.article.article.repository.ArticleRepository;
+import com.sbs.domain.article.article.service.ArticleService;
 import com.sbs.domain.member.controller.MemberController;
 import com.sbs.domain.member.repository.MemberRepository;
 import com.sbs.domain.member.service.MemberService;

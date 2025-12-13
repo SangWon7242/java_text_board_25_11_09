@@ -1,4 +1,4 @@
-package com.sbs.domain.article.dto;
+package com.sbs.domain.article.article.dto;
 
 import lombok.*;
 

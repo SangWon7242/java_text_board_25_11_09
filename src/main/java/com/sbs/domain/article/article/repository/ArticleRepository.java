@@ -1,6 +1,6 @@
-package com.sbs.domain.article.repository;
+package com.sbs.domain.article.article.repository;
 
-import com.sbs.domain.article.dto.Article;
+import com.sbs.domain.article.article.dto.Article;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
-package com.sbs.domain.article.controller;
+package com.sbs.domain.article.article.controller;
 
-import com.sbs.domain.article.dto.Article;
-import com.sbs.domain.article.service.ArticleService;
+import com.sbs.domain.article.article.dto.Article;
+import com.sbs.domain.article.article.service.ArticleService;
 import com.sbs.domain.member.member.dto.Member;
 import com.sbs.domain.member.service.MemberService;
 import com.sbs.global.base.container.Container;
