@@ -30,7 +30,7 @@ public class ArticleRepository {
     return article;
   }
 
-  public List<Article> findByAll() {
+  public List<Article> findAll() {
     return articles;
   }
 
@@ -58,8 +58,12 @@ public class ArticleRepository {
   }
 
   public List<Article> findByKeywordContaining(String keyword) {
-    return articles.stream()
-        .filter(article -> article.getTitle().contains(keyword))
-        .collect(Collectors.toList());
+    if(!keyword.isEmpty()) {
+      return articles.stream()
+          .filter(article -> article.getTitle().contains(keyword) || article.getContent().contains(keyword))
+          .collect(Collectors.toList());
+    }
+
+    return findAll();
   }
 }

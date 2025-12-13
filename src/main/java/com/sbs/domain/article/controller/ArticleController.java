@@ -79,8 +79,9 @@ public class ArticleController implements BaseController {
   public void showList(Rq rq) {
     // 검색 키워드
     String q = rq.getParam("q", "");
+    String sortCode = rq.getParam("sortCode", "idDesc");
 
-    List<Article> articles = articleService.getArticles(q);
+    List<Article> articles = articleService.getArticles(q, sortCode);
 
     if (articles.isEmpty()) {
       System.out.println("게시물이 존재하지 않습니다.");
@@ -90,10 +91,10 @@ public class ArticleController implements BaseController {
     System.out.println("== 게시물 리스트 ==");
     System.out.println("번호 | 제목 | 작성자");
 
-    for (int i = articles.size() - 1; i >= 0; i--) {
-      Article article = articles.get(i);
-      System.out.printf("%d | %s | %s\n", article.getId(), article.getTitle(), article.getWriterName());
-    }
+    articles.forEach(
+        article ->
+            System.out.printf("%d | %s | %s\n", article.getId(), article.getTitle(), article.getWriterName())
+    );
   }
 
   private void doModify(Rq rq) {
