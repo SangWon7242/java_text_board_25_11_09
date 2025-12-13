@@ -17,7 +17,7 @@ public class Board {
     lastId = 0;
   }
 
-  public Board(String title, String content, int memberId, String writerName) {
-    this(++lastId, title, content, memberId, writerName);
+  public Board(String name, String code) {
+    this(++lastId, name, code);
   }
 }
