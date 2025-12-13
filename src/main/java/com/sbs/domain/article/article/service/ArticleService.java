@@ -22,35 +22,48 @@ public class ArticleService {
     return articleRepository.findAll();
   }
 
-  public List<Article> getArticles(String keyword, String sortCode) {
-    // 검색 수행
-    List<Article> filteredArticles = getFilteredArticles(keyword);
+  public List<Article> getArticles(String keyword, String sortCode, int boardId) {
+    List<Article> articles = articleRepository.findAll();
+
+    // 1. 게시판 필터링 (가장 먼저 - 데이터 양 감소)
+    articles = getBoardArticles(articles, boardId);
+
+    // 2. 키워드 필터링
+    articles = getFilteredArticles(articles, keyword);
+
+    // 3. 정렬
+    articles = getSortedArticles(articles, sortCode);
 
     // 정렬 수행
-    return sortedArticles(filteredArticles, sortCode);
+    return articles;
   }
 
-  private List<Article> sortedArticles(List<Article> articles, String sortCode) {
+  private List<Article> getSortedArticles(List<Article> articles, String sortCode) {
+
     // 복사본을 생성
-    List<Article> sortedArticles = new ArrayList<>(articles);
+    List<Article> sorted = new ArrayList<>(articles);
 
     if (!sortCode.isEmpty()) {
       switch (sortCode) {
         case "idAsc":
-          sortedArticles.sort((a1, a2) -> a1.getId() - a2.getId());
+          sorted.sort((a1, a2) -> a1.getId() - a2.getId());
           break;
         case "idDesc":
         default:
-          sortedArticles.sort((a1, a2) -> a2.getId() - a1.getId());
+          sorted.sort((a1, a2) -> a2.getId() - a1.getId());
           break;
       }
     }
 
-    return sortedArticles;
+    return sorted;
   }
 
-  private List<Article> getFilteredArticles(String keyword) {
-    return articleRepository.findByKeywordContaining(keyword);
+  private List<Article> getBoardArticles(List<Article> articles, int boardId) {
+    return articleRepository.findByBoardId(articles, boardId);
+  }
+
+  private List<Article> getFilteredArticles(List<Article> articles, String keyword) {
+    return articleRepository.findByKeywordContaining(articles, keyword);
   }
 
   public Article findById(int id) {
