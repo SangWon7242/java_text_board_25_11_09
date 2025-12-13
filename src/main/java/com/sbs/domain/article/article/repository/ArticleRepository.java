@@ -58,7 +58,7 @@ public class ArticleRepository {
   }
 
   public List<Article> findByKeywordContaining(List<Article> articles, String keyword) {
-    if(keyword.isEmpty()) return findAll();
+    if(keyword.isEmpty()) return articles;
 
     return articles.stream()
         .filter(article -> article.getTitle().contains(keyword) || article.getContent().contains(keyword))
