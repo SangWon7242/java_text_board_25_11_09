@@ -1,5 +1,7 @@
 package com.sbs.global.base.container;
 
+import com.sbs.domain.article.Board.repository.BoardRepository;
+import com.sbs.domain.article.Board.service.BoardService;
 import com.sbs.domain.article.article.controller.ArticleController;
 import com.sbs.domain.article.article.repository.ArticleRepository;
 import com.sbs.domain.article.article.service.ArticleService;
@@ -19,9 +21,11 @@ public class Container {
   public static NeedLoginInterceptor needLoginInterceptor;
   public static NeedLogoutInterceptor needLogoutInterceptor;
 
+  public static BoardRepository boardRepository;
   public static MemberRepository memberRepository;
   public static ArticleRepository articleRepository;
 
+  public static BoardService boardService;
   public static MemberService memberService;
   public static ArticleService articleService;
 
@@ -35,9 +39,11 @@ public class Container {
     needLoginInterceptor = new NeedLoginInterceptor();
     needLogoutInterceptor = new NeedLogoutInterceptor();
 
+    boardRepository = new BoardRepository();
     memberRepository = new MemberRepository();
     articleRepository = new ArticleRepository();
 
+    boardService = new BoardService();
     memberService = new MemberService();
     articleService = new ArticleService();
 

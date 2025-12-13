@@ -1,5 +1,7 @@
 package com.sbs.domain.article.article.controller;
 
+import com.sbs.domain.article.Board.dto.Board;
+import com.sbs.domain.article.Board.service.BoardService;
 import com.sbs.domain.article.article.dto.Article;
 import com.sbs.domain.article.article.service.ArticleService;
 import com.sbs.domain.member.member.dto.Member;
@@ -11,10 +13,12 @@ import com.sbs.global.base.rq.Rq;
 import java.util.List;
 
 public class ArticleController implements BaseController {
+  private BoardService boardService;
   private MemberService memberService;
   private ArticleService articleService;
 
   public ArticleController() {
+    boardService = Container.boardService;
     memberService = Container.memberService;
     articleService = Container.articleService;
   }
@@ -31,6 +35,20 @@ public class ArticleController implements BaseController {
   }
 
   public void doWrite(Rq rq) {
+    int id = rq.getUrlPathVariable();
+
+    if(id == 0) {
+      System.out.println("올바른 값을 입력해주세요.");
+      return;
+    }
+
+    Board board = boardService.findByBoardId(id);
+
+    if(board == null) {
+      System.out.println("해당 게시판은 존재하지 않습니다.");
+      return;
+    }
+
     System.out.println("== 게시물 작성 ==");
     System.out.print("제목 : ");
     String title = Container.sc.nextLine();
@@ -41,7 +59,9 @@ public class ArticleController implements BaseController {
     int memberId = rq.getLoginedMember().getId();
     String writerName = memberService.findById(memberId).getUsername();
 
-    Article article = articleService.write(title, content, memberId, writerName);
+    int boardId = board.getId();
+
+    Article article = articleService.write(title, content, memberId, writerName, boardId);
 
     System.out.printf("%d번 게시물이 등록 되었습니다.\n", article.getId());
   }
