@@ -1,6 +1,7 @@
 package com.sbs.domain.article.article.repository;
 
 import com.sbs.domain.article.article.dto.Article;
+import com.sbs.global.util.Ut;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,10 @@ public class ArticleRepository {
   }
 
   public Article write(String title, String content, int memberId, String writerName, int boardId) {
-    Article article = new Article(title, content, memberId, writerName, boardId);
+    String regDate = Ut.getNowDateStr();
+    String updateDate = Ut.getNowDateStr();
+
+    Article article = new Article(regDate, updateDate, title, content, memberId, writerName, boardId);
     articles.add(article);
 
     return article;

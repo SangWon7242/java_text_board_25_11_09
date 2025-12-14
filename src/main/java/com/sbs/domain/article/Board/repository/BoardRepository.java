@@ -1,10 +1,10 @@
 package com.sbs.domain.article.Board.repository;
 
 import com.sbs.domain.article.Board.dto.Board;
+import com.sbs.global.util.Ut;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class BoardRepository {
   private List<Board> boards;
@@ -16,8 +16,8 @@ public class BoardRepository {
   }
 
   void makeTestData() {
-    boards.add(new Board("자유", "free"));
-    boards.add(new Board("공지", "notice"));
+    add("자유", "free");
+    add("공지", "notice");
   }
 
   public Board findByBoardId(int id) {
@@ -41,7 +41,10 @@ public class BoardRepository {
   }
 
   public void add(String name, String code) {
-    Board board = new Board(name, code);
+    String regDate = Ut.getNowDateStr();
+    String updateDate = Ut.getNowDateStr();
+
+    Board board = new Board(regDate, updateDate, name, code);
 
     boards.add(board);
   }
