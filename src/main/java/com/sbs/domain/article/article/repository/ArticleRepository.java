@@ -2,6 +2,7 @@ package com.sbs.domain.article.article.repository;
 
 import com.sbs.domain.article.article.dto.Article;
 import com.sbs.global.util.Ut;
+import jdk.jshell.execution.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ public class ArticleRepository {
   void makeTestData() {
     IntStream.rangeClosed(1, 5)
         .forEach(
-            i -> write("제목" + i, "내용" + i, 1, "user1", 1)
+            i -> write("제목" + i, "내용" + i, 2, "user1", 1)
         );
   }
 
@@ -49,6 +50,9 @@ public class ArticleRepository {
 
     if(article == null) return;
 
+    String updateDate = Ut.getNowDateStr();
+
+    article.setUpdateDate(updateDate);
     article.setTitle(title);
     article.setContent(content);
   }
