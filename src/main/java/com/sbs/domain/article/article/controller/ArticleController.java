@@ -88,7 +88,7 @@ public class ArticleController implements BaseController {
       return;
     }
 
-    Board board = boardService.findByBoardId(article.getId());
+    Board board = boardService.findByBoardId(article.getBoardId());
 
     System.out.printf("== [%s 게시판] 게시물 상세보기 ==\n", board.getName());
     System.out.printf("번호 : %d\n", article.getId());
