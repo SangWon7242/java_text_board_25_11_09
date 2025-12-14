@@ -13,20 +13,27 @@ public class Member {
   private String username;
   private String password;
   private String name;
+  private Role role;
 
   static {
     lastId = 0;
   }
 
+  // 일반 회원 생성자
   public Member(String username, String password, String name) {
-    this(++lastId, username, password, name);
+    this(++lastId, username, password, name, Role.ROLE_USER);
   }
 
-  public String getType() {
-    return isAdmin() ? "관리자" : "일반회원";
+  // 관리자 포함 생성자
+  public Member(String username, String password, String name, Role role) {
+    this(++lastId, username, password, name, role);
   }
 
-  private boolean isAdmin() {
-    return username.equals("admin");
+  public boolean isAdmin() {
+    return this.role == Role.ROLE_ADMIN;
+  }
+
+  public boolean isUser() {
+    return !isAdmin();
   }
 }
